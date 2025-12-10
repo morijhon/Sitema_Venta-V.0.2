@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda - Inicia Sesión</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .auth-container h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #f7fafc;
+        }
+
+        .auth-container input:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            font-size: 13px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #764ba2;
+        }
+
+        .auth-container button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 13px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .auth-container button:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cbd5e0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #e2e8f0;
+        }
+
+        .signup-section {
+            padding-top: 20px;
+        }
+
+        .signup-section p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .signup-section a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-section a:hover {
+            color: #764ba2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            color: #cbd5e0;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #2d3748;
+        }
+
+        .modal h2 {
+            color: #2d3748;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .modal .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal button {
+            margin-top: 0;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            font-size: 14px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link a:hover {
+            color: #764ba2;
+        }
+
+        .preview-container {
+            margin-top: 15px;
+            text-align: center;
+            padding: 15px;
+            background-color: #f7fafc;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .preview-container.show {
+            display: block;
+        }
+
+        .preview-container img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+        }
+
+        .preview-container p {
+            font-size: 12px;
+            color: #718096;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- MODAL DE LOGIN -->
+    <div class="auth-container" id="loginContainer">
+        <div class="logo">🛍️</div>
+        <h1>Mi Tienda</h1>
+        <p class="subtitle">Bienvenido a tu tienda online</p>
+        
+        <form id="loginForm" action="login.php" method="POST">
+            <div class="form-group">
+                <label for="username">Correo o Usuario</label>
+                <input type="email" id="username" name="email" placeholder="Tu usuario o email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="Tu contraseña" required>
+            </div>
+            
+            <div class="forgot-password">
+                <a href="#" onclick="openForgotModal(event)">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <button type="submit">Entrar</button>
+        </form>
+        
+        <div class="divider">o</div>
+        
+        <div class="signup-section">
+            <p>¿No tienes una cuenta? <a href="#" onclick="openSignupModal(event)">Regístrate aquí</a></p>
+        </div>
+    </div>
+
+    <!-- MODAL DE REGISTRO -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignupModal()">&times;</span>
+            
+            <h2>Crear Cuenta</h2>
+            <p>Únete a nuestra tienda y comienza a comprar</p>
+            
+            <form id="signupForm" action="create_user.php" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="signup-name">Nombre Completo</label>
+                    <input type="text" id="signup-name" name="nombre" placeholder="Tu nombre completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="email" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Contraseña</label>
+                    <input type="password" id="signup-password" name="password" placeholder="Mínimo 8 caracteres" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="signup-confirm-password" name="password_confirm" placeholder="Repite tu contraseña" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-avatar">Foto de perfil (opcional)</label>
+                    <input type="file" id="signup-avatar" name="avatar" accept="image/*">
+                    <div id="preview-container" class="preview-container">
+                        <img id="preview-image" src="" alt="Vista previa">
+                        <p id="preview-name">Foto seleccionada</p>
+                    </div>
+                </div>
+                
+                <button type="submit">Crear Cuenta</button>
+            </form>
+            
+            <div class="back-link">
+                <a href="#" onclick="closeSignupModal()">Volver a iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE RECUPERAR CONTRASEÑA -->
+    <div id="forgotModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeForgotModal()">&times;</span>
+            
+            <h2>Recuperar Contraseña</h2>
+            <p>Ingresa tu email y te enviaremos instrucciones para recuperar tu contraseña</p>
+            
+            <form id="forgotForm">
+                <div class="form-group">
+                    <label for="forgot-email">Email</label>
+                    <input type="email" id="forgot-email" placeholder="tu@email.com" required>
+                </div>
+                
+                <button type="submit">Enviar Instrucciones</button>
+            </form>
+            
+            <div class="back-link">
+                <a href="#" onclick="closeForgotModal()">Volver a iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FUNCIONES DE MODALES
+        function openSignupModal(event) {
+            event.preventDefault();
+            document.getElementById('signupModal').style.display = 'block';
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').style.display = 'none';
+        }
+
+        function openForgotModal(event) {
+            event.preventDefault();
+            document.getElementById('forgotModal').style.display = 'block';
+        }
+
+        function closeForgotModal() {
+            document.getElementById('forgotModal').style.display = 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const signupModal = document.getElementById('signupModal');
+            const forgotModal = document.getElementById('forgotModal');
+            
+            if (event.target === signupModal) {
+                signupModal.style.display = 'none';
+            }
+            if (event.target === forgotModal) {
+                forgotModal.style.display = 'none';
+            }
+        }
+
+        // MANEJO DE FORMULARIOS
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            // Permitir envío normal del formulario a login.php
+        });
+
+        // Vista previa de imagen
+        document.getElementById('signup-avatar').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const previewContainer = document.getElementById('preview-container');
+            const previewImage = document.getElementById('preview-image');
+            const previewName = document.getElementById('preview-name');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImage.src = event.target.result;
+                    previewName.textContent = file.name;
+                    previewContainer.classList.add('show');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.classList.remove('show');
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            // Si las contraseñas coinciden, permitimos el envío normal del formulario
+        });
+
+        document.getElementById('forgotForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Se ha enviado un enlace de recuperación a tu email');
+            closeForgotModal();
+        });
+    </script>
+</body>
+</html>
